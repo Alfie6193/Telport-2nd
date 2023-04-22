@@ -1,0 +1,79 @@
+-- Configuration
+local BACKGROUND_COLOR = Color3.fromRGB(38, 38, 38)
+local PRIMARY_COLOR = Color3.fromRGB(238, 201, 0)
+local TEXT_COLOR = Color3.fromRGB(255, 255, 255)
+local FONT = Enum.Font.GothamSemibold
+
+-- Create the GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "Teleport GUI"
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.ResetOnSpawn = false
+gui.Parent = game.CoreGui
+
+-- Create a Frame to hold the GUI elements
+local frame = Instance.new("Frame")
+frame.Name = "Container"
+frame.Size = UDim2.new(0, 350, 0, 180)
+frame.Position = UDim2.new(0.5, -175, 0.5, -90)
+frame.BackgroundColor3 = BACKGROUND_COLOR
+frame.BorderColor3 = PRIMARY_COLOR
+frame.BorderSizePixel = 2
+frame.Active = true -- make the frame interactive
+frame.Draggable = true -- make the frame draggable
+frame.Parent = gui
+
+-- Create the GUI elements
+local label = Instance.new("TextLabel")
+label.Name = "Label"
+label.Text = "Teleport to Player"
+label.Size = UDim2.new(1, 0, 0, 40)
+label.Position = UDim2.new(0, 0, 0, 10)
+label.TextColor3 = TEXT_COLOR
+label.Font = FONT
+label.TextSize = 24
+label.Parent = frame
+
+local textbox = Instance.new("TextBox")
+textbox.Name = "Textbox"
+textbox.Size = UDim2.new(0.7, 0, 0, 40)
+textbox.Position = UDim2.new(0.15, 0, 0, 60)
+textbox.PlaceholderText = "Enter player name"
+textbox.Font = FONT
+textbox.TextSize = 20
+textbox.TextColor3 = TEXT_COLOR
+textbox.Parent = frame
+
+local teleportButton = Instance.new("TextButton")
+teleportButton.Name = "TeleportButton"
+teleportButton.Text = "Teleport"
+teleportButton.Size = UDim2.new(0.4, 0, 0, 40)
+teleportButton.Position = UDim2.new(0.3, 0, 0, 115)
+teleportButton.BackgroundColor3 = PRIMARY_COLOR
+teleportButton.BorderColor3 = TEXT_COLOR
+teleportButton.Font = FONT
+teleportButton.TextSize = 20
+teleportButton.TextColor3 = TEXT_COLOR
+teleportButton.Parent = frame
+
+-- Teleport function
+local function teleportToPlayer(playerName)
+    local players = game:GetService("Players")
+    local targetPlayer = players:FindFirstChild(playerName)
+
+    if targetPlayer then
+        local playerCharacter = players.LocalPlayer.Character
+        local targetCharacter = targetPlayer.Character
+        local humanoidRootPart = targetCharacter:WaitForChild("HumanoidRootPart")
+
+        playerCharacter:MoveTo(humanoidRootPart.Position)
+    else
+        warn("Player not found.")
+    end
+end
+
+-- Set up the Teleport button click event
+teleportButton.MouseButton1Click:Connect(function()
+    local playerName = textbox.Text
+    teleportToPlayer(playerName)
+end)
