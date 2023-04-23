@@ -1,6 +1,7 @@
 -- Configuration
 local BACKGROUND_COLOR = Color3.fromRGB(38, 38, 38)
 local PRIMARY_COLOR = Color3.fromRGB(238, 201, 0)
+local SECONDARY_COLOR = Color3.fromRGB(28, 28, 28)
 local TEXT_COLOR = Color3.fromRGB(255, 255, 255)
 local FONT = Enum.Font.GothamSemibold
 
@@ -29,6 +30,7 @@ label.Name = "Label"
 label.Text = "Teleport to Player"
 label.Size = UDim2.new(1, 0, 0, 40)
 label.Position = UDim2.new(0, 0, 0, 10)
+label.BackgroundTransparency = 1
 label.TextColor3 = TEXT_COLOR
 label.Font = FONT
 label.TextSize = 24
@@ -42,6 +44,10 @@ textbox.PlaceholderText = "Enter player name"
 textbox.Font = FONT
 textbox.TextSize = 20
 textbox.TextColor3 = TEXT_COLOR
+textbox.BackgroundTransparency = 0.8
+textbox.BackgroundColor3 = SECONDARY_COLOR
+textbox.BorderSizePixel = 0
+textbox.ClearTextOnFocus = true
 textbox.Parent = frame
 
 local teleportButton = Instance.new("TextButton")
@@ -54,6 +60,7 @@ teleportButton.BorderColor3 = TEXT_COLOR
 teleportButton.Font = FONT
 teleportButton.TextSize = 20
 teleportButton.TextColor3 = TEXT_COLOR
+teleportButton.AutoButtonColor = false
 teleportButton.Parent = frame
 
 -- Teleport function
@@ -77,22 +84,3 @@ teleportButton.MouseButton1Click:Connect(function()
     local playerName = textbox.Text
     teleportToPlayer(playerName)
 end)
-
---Notification
-
-local HttpService = game:GetService("HttpService")
-local NotificationService = game:GetService("NotificationService")
-
--- Retrieve the image from the URL
-local imageUrl = "https://tr.rbxcdn.com/7ee0284da18f7d05ee39c2c3f551b9e0/420/420/Image/Png"
-local imageBytes = HttpService:GetAsync(imageUrl, true)
-
--- Create the notification with the image
-local notificationInfo = NotificationService:CreateNotification("Title", "Message", imageBytes)
-notificationInfo.Button1 = "OK"
-notificationInfo.Button2 = "Cancel"
-
--- Display the notification to all players in the game
-for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-    notificationInfo:Clone().Parent = player:WaitForChild("PlayerGui")
-end
