@@ -90,12 +90,11 @@ screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local textLabel = Instance.new("TextLabel")
 textLabel.Parent = screenGui
-textLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+textLabel.Position = UDim2.new(0.8, 0, 0.9, 0)
 textLabel.Size = UDim2.new(0, 200, 0, 50)
 textLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-textLabel.Text = "made by Alfie : ) morden"
+textLabel.Text = "made by Alfie : ) modern"
 textLabel.TextColor3 = Color3.new(1, 1, 1)
 textLabel.BackgroundTransparency = 1
 textLabel.Font = Enum.Font.SourceSansBold
 textLabel.TextSize = 20
-
