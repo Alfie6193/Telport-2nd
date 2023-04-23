@@ -1,1 +1,1 @@
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Alfie6193/Telport-2nd/main/Teplort%20Script2nd.txt"))();
